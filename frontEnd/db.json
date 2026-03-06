@@ -1,0 +1,56 @@
+{
+  "notes": [
+    {
+      "id": "1",
+      "content": "HTML is easy",
+      "important": true
+    },
+    {
+      "id": "2",
+      "content": "Browser can execute only JavaScript",
+      "important": true
+    },
+    {
+      "id": "3",
+      "content": "GET and POST are the most important methods of HTTP protocol",
+      "important": true
+    },
+
+    {
+      "id": "8584",
+      "content": "new note...",
+      "important": true
+    },
+
+    {
+      "id": "9b62",
+      "content": "post method is used to store data to server",
+      "important": false
+    },
+    {
+      "id": "c065",
+      "content": "get method is used to fitch data from server",
+      "important": false
+    },
+    {
+      "id": "7b52",
+      "content": "good application",
+      "important": false
+    },
+    {
+      "id": "6639",
+      "content": "new",
+      "important": false
+    },
+    {
+      "id": "dc54",
+      "content": "new note...",
+      "important": false
+    },
+    {
+      "id": "6c11",
+      "content": "wedi keshi",
+      "important": true
+    }
+  ]
+}
