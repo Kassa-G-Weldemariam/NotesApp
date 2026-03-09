@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+     "lint": "eslint .",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node --watch index.js",
     "build:ui": "rm -rf dist && cd ../frontEnd && npm run build && cp -r dist ../backend",
@@ -18,5 +19,11 @@
     "express": "^5.2.1",
     "mongoose": "^9.2.4",
     "morgan": "^1.10.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@stylistic/eslint-plugin": "^5.10.0",
+    "eslint": "^10.0.3",
+    "globals": "^17.4.0"
   }
 }
