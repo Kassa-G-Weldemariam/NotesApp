@@ -7,7 +7,7 @@ if(process.argv.length<3){
 
 const password=process.argv[2]
 
-const url = `mongodb+srv://fullstack_db_user:${password}@cluster0.fwusvsp.mongodb.net/noteApp?appName=Cluster0`
+const url = `mongodb+srv://fullstack_db_user:${password}@cluster0.fwusvsp.mongodb.net/testNoteApp?appName=Cluster0`
 
 mongoose.set('strictQuery', false)
 
@@ -19,5 +19,14 @@ const noteSchema= new mongoose.Schema({
 })
 
 const Note =mongoose.model('Note', noteSchema)
+const note=new Note({
+  content:"python is also easy but js!",
+  important:false
+})
 
-Note.find({}).then(result => {result.forEach(note => {console.log(note)}), mongoose.connection.close()})
+note.save().then(result=>{
+  console.log(result)
+  mongoose.connection.close()
+})
+
+// Note.find({}).then(result => {result.forEach(note => {console.log(note)}), mongoose.connection.close()})
