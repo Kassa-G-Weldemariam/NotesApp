@@ -3,17 +3,31 @@ import Notes from "./components/Notes";
 import noteService from "./services/notes";
 import Notification from "./components/Notification";
 import Footer from "./components/Footer";
+import loginService from "./services/login";
+import LoginForm from "./components/LoginForm";
+import NoteForm from "./components/NoteForm";
 
 function App() {
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState("new note...");
   const [showAll, setShowAll] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     noteService.getAll().then((initialNotes) => {
       setNotes(initialNotes);
     });
+  }, []);
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem("loggedNoteAppUser");
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON);
+      setUser(user);
+      noteService.setToken(user.token);
+    }
   }, []);
 
   const addNote = (e) => {
@@ -48,10 +62,52 @@ function App() {
         setNotes(notes.filter((note) => note.id !== id));
       });
   };
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const user = await loginService.login({ username, password });
+      window.localStorage.setItem("loggedNoteAppUser", JSON.stringify(user));
+      noteService.setToken(user.token);
+      setUser(user);
+      setUsername("");
+      setPassword("");
+    } catch (error) {
+      setErrorMessage("wrong credentials");
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 5000);
+    }
+  };
+  const handleLogOut = (e) => {
+    e.preventDefault();
+    window.localStorage.removeItem("loggedNoteAppUser");
+    setUser(null);
+  };
   return (
     <>
       <h1>Notes</h1>
       {errorMessage ? <Notification message={errorMessage} /> : ""}
+      {!user && (
+        <LoginForm
+          handleLogin={handleLogin}
+          username={username}
+          password={password}
+          setUsername={setUsername}
+          setPassword={setPassword}
+        />
+      )}
+      {user && (
+        <div>
+          <div>
+            {user.name} logged in <button onClick={handleLogOut}>logout</button>
+          </div>
+          <NoteForm
+            addNote={addNote}
+            newNote={newNote}
+            setNewNote={setNewNote}
+          />
+        </div>
+      )}
       <div>
         <button onClick={() => setShowAll(!showAll)}>
           show {showAll ? "important" : "all"}
@@ -66,14 +122,6 @@ function App() {
           />
         ))}
       </ul>
-      <form onSubmit={addNote} action="">
-        <input
-          type="text"
-          value={newNote}
-          onChange={(e) => setNewNote(e.target.value)}
-        />
-        <button type="submit">save</button>
-      </form>
       <Footer />
     </>
   );
