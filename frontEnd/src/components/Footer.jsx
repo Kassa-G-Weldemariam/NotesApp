@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react'
 
 const Footer = () => {
   const footerStyle = {
-    color: "green",
-    fontStyle: "italic",
-  };
+    color: 'green',
+    fontStyle: 'italic',
+  }
   return (
     <div style={footerStyle}>
       <p>
@@ -13,7 +13,7 @@ const Footer = () => {
         Note app, Department of computer science, University of Helsinki.
       </p>
     </div>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer
