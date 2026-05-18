@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 const NoteForm = ({ createNote }) => {
-  const [newNote, setNewNote] = useState('new note...')
+  const [newNote, setNewNote] = useState('')
   const addNote=(e) => {
     e.preventDefault()
     createNote({
